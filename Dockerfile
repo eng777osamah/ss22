@@ -10,17 +10,18 @@ ENV DATABASE_URL="postgresql://user:pass@localhost:5432/db"
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies
-RUN npm ci
+# 1. تثبيت كل الحزم (بما فيها devDependencies مثل @nestjs/cli) لضمان عمل أمر nest build
+RUN npm ci --include=dev
 
-# Generate prisma client (no DB connection needed)
+# 2. توليد Prisma Client
 RUN npx prisma generate
 
 # Copy source code
 COPY . .
+RUN npm run build
 
 # Build the NestJS app
-RUN npm run build
+RUN npm ci --include=dev
 
 # Stage 2: Production
 FROM node:20-alpine AS production
@@ -68,7 +69,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 # Expose port (nginx proxies /api/ to backend:3000)
-EXPOSE 3000
+EXPOSE 10000
 
 # Start the application with automated migration only (no seeding in production)
 CMD ["sh", "-c", "npx prisma generate && npx prisma migrate deploy && node dist/main.js"]
