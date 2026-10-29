@@ -6,6 +6,7 @@
     "build": "nest build --path tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "nest start",
+    "start:prod": "node dist/main.js",
     "dev": "nest start --watch",
     "test": "TS_NODE_PROJECT=tests/tsconfig.json node --test --require ts-node/register tests/*.test.ts"
   },
