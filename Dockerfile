@@ -21,7 +21,6 @@ COPY . .
 RUN npm run build
 
 # Build the NestJS app
-RUN npm ci --include=dev
 
 # Stage 2: Production
 FROM node:20-alpine AS production
