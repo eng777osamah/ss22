@@ -20,7 +20,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # Railway: set NEXT_PUBLIC_API_URL on the frontend service (it is passed as a build arg).
 # This default is the real deployed backend, so even if no build arg is passed the
 # image bakes the correct URL. Note: no "/api" suffix (backend has no global prefix).
-ARG NEXT_PUBLIC_API_URL=https://backend-production-e991.up.railway.app
+ARG NEXT_PUBLIC_API_URL=https://ss22.onrender.com
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 RUN NEXT_PUBLIC_API_URL="$(echo "$NEXT_PUBLIC_API_URL" | sed 's#/api/*$##')" npm run build
@@ -53,8 +53,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static /app/.next/static
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 10000
 
-ENV PORT 3000
+ENV PORT 10000
 
 CMD ["node", "server.js"]
