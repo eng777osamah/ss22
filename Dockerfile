@@ -2,7 +2,7 @@
 FROM node:20-alpine AS builder
 
 WORKDIR /usr/src/app
-
+ENV NODE_OPTIONS="--max-old-space-size=400
 # Build-time placeholder so @prisma/client postinstall + generate succeed.
 # Runtime env vars from Railway OVERRIDE this; generate never connects to the DB.
 ENV DATABASE_URL="postgresql://user:pass@localhost:5432/db"
