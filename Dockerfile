@@ -4,7 +4,7 @@ FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 # Build-time placeholder so @prisma/client postinstall + generate succeed.
 # Runtime env vars from Railway OVERRIDE this; generate never connects to the DB.
-ENV DATABASE_URL="postgresql://user:pass@localhost:5432/db"
+ENV DATABASE_URL="postgresql://my_app_db_t0z8_user:AY7q3mwMmYAzELxbM9g2BTnSV3SE0pkE@dpg-dbhrlqmtlv9c73cglvf0-a/my_app_db_t0z8"
 
 COPY package*.json ./
 COPY prisma ./prisma/
